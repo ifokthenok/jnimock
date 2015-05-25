@@ -130,10 +130,16 @@ jnimock_main.a : jnimock.o gmock-all.o gtest-all.o gmock_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
 # Builds a sample test.
-jnimock_testcase.o : $(SAMPLES_DIR)/jnimock_testcase.cpp $(JNIMOCK_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SAMPLES_DIR)/jnimock_testcase.cpp
+jni_example_test.o : $(SAMPLES_DIR)/jni_example_test.cpp $(JNIMOCK_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SAMPLES_DIR)/jni_example_test.cpp
 
-jni_example_test : jnimock_testcase.o jnimock_main.a
+jni_c_example.o : $(SAMPLES_DIR)/jni_c_example.c $(JNIMOCK_HEADERS)
+	$(GCC) $(CPPFLAGS) $(CXXFLAGS) -c $(SAMPLES_DIR)/jni_c_example.c
+
+jni_cpp_example.o : $(SAMPLES_DIR)/jni_cpp_example.cpp $(JNIMOCK_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SAMPLES_DIR)/jni_cpp_example.cpp
+
+jni_example_test : jni_example_test.o jni_c_example.o jni_cpp_example.o jnimock_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
 
