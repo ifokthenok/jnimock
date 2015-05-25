@@ -60,7 +60,7 @@ all : jnimock.a jnimock_main.a $(TEST)
 clean :
 	rm -f $(TEST) jnimock.a jnimock_main.a *.o
 
-# Optial targets for installing/uninsalling and running the example tests 
+# Optional targets for installing/uninsalling and running the example tests 
 # on android devices. You can fix them to meet your project's needs.
 install : $(TEST)
 	adb shell mkdir -p /sdcard/unittest
