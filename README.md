@@ -14,13 +14,18 @@ You can use jnimock API to write JNI code related testcase like the following ex
 #include "gmock/gmock.h"
 #include "jnimock/jnimock.h"
 
+using testing::Return;
+using namespace jnimock;
+
+// The tested code
 jint Java_my_package_MyClass_cMethod(JNIEnv*, jclass) {
 	return (*env)->GetVersion(env);
 }
 
+// The testcase
 TEST(JNITest, GetVersion) {
 
-    // create a JNIEnvMock object (JNIEnvMock extends JNIEnv)
+    // Create a JNIEnvMock object (JNIEnvMock extends JNIEnv)
 	JNIEnvMock* env = createJNIEnvMock();
 
 	EXPECT_CALL(*env, GetVersion())
@@ -30,7 +35,7 @@ TEST(JNITest, GetVersion) {
 	jint r = Java_my_package_MyClass_cMethod(env, NULL);
 	EXPECT_EQ(r, JNI_VERSION_1_6);
 
-    // destory the created JNIEnvMock object
+    // Destory the created JNIEnvMock object
 	destroyJNIEnvMock(env);
 }
 ```
@@ -40,7 +45,7 @@ Usage
 
 ### Use the source
 
-You can directly use jnimock sources for your testing. Copy the following two
+You can directly use the jnimock source for your testing. Copy the following two
 files to a proper place in your project 
 
 	<jnimock-src-dir>/include/jnimock/jnimock.h
@@ -48,20 +53,22 @@ files to a proper place in your project
 
 #### Notice
 
- - a. jnimock depends on gmock, so make sure you have gmock installed first.
- - b. jnimock depends on jni.h, so make sure you has Android NDK or Android cross-compile toolchain.
+ - a. jnimock depends on gmock, so make sure you have gmock installed.
+ - b. jnimock depends on jni.h, so make sure you has Android NDK or Android cross-compile toolchain installed.
 
 ### Use the lib (jnimock.a and jnimock_main.a)
 
-First copy \<jnimock-src-dir\>/include/jnimock/jnimock.h to your project's including dir.
+First copy the following header file to your project's 'include' dir
+	\<jnimock-src-dir\>/include/jnimock/jnimock.h
+
 Then, you can alternately use jnimock.a or jnimock_main.a for your convenience.
 
- - jnimock.a is a static library which contains jnimock implementation
- - jnimock_main.a is a static library which jnimock and gmock main() function implementation
+ - jnimock.a is a static library which contains jnimock implementation.
+ - jnimock_main.a is a static library which contains jnimock and gmock main() function implementation.
 
-Refer the below detais for building jnimock.a and jnimock_main.a.
-If you want to build a shared lib, you can modify 
-  \<jnimock-src-dir\>/make/Makefile
+Refer the Building details for jnimock.a and jnimock_main.a.
+If you want to build a shared lib, you can tweak the following makefile 
+	\<jnimock-src-dir\>/make/Makefile
 
 
 Building
@@ -97,6 +104,6 @@ $ cd <jnimock-src-dir>/make
 $ make GMOCK_DIR=<gmock-src-dir> CROSS_PREFIX=<generated-toolchain-dir>/bin/arm-linux-androideabi-
 ```
 
-After a successful building, jnimock.a, jnimock_main.a are generated in dir:
-    \<jnimock-src-dir\>/make/ 
+After a successful building, jnimock.a and jnimock_main.a are generated in the following dir:
+	<jnimock-src-dir>/make/ 
 You can use them for your JNI related testcase.
