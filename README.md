@@ -59,7 +59,8 @@ files to a proper place in your project
 ### Use the lib (jnimock.a and jnimock_main.a)
 
 First copy the following header file to your project's 'include' dir
-	\<jnimock-src-dir\>/include/jnimock/jnimock.h
+
+	<jnimock-src-dir>/include/jnimock/jnimock.h
 
 Then, you can alternately use jnimock.a or jnimock_main.a for your convenience.
 
@@ -67,8 +68,9 @@ Then, you can alternately use jnimock.a or jnimock_main.a for your convenience.
  - jnimock_main.a is a static library which contains jnimock and gmock main() function implementation.
 
 Refer the Building details for jnimock.a and jnimock_main.a.
-If you want to build a shared lib, you can tweak the following makefile 
-	\<jnimock-src-dir\>/make/Makefile
+If you want to build a shared lib, you can tweak the following makefile
+
+	<jnimock-src-dir>/make/Makefile
 
 
 Building
@@ -105,5 +107,7 @@ $ make GMOCK_DIR=<gmock-src-dir> CROSS_PREFIX=<generated-toolchain-dir>/bin/arm-
 ```
 
 After a successful building, jnimock.a and jnimock_main.a are generated in the following dir:
+
 	<jnimock-src-dir>/make/ 
+	
 You can use them for your JNI related testcase.
