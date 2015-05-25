@@ -3,19 +3,20 @@ jnimock
 
 Overview
 --------
-jnimock is implemented on top of gmock(http://code.google.com/p/googlemock/).
+jnimock is implemented on top of [gmock](http://code.google.com/p/googlemock/).
 Its target is mock all the JNI functions supported by Android NDK. 
 
 Example
 -------
 You can use jnimock API to write JNI code related testcase like the following exmaple
-
 ```c++
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include "jnimock/jnimock.h"
 
-extern "C" jint Java_my_package_MyClass_cMethod(JNIEnv*, jclass);
+jint Java_my_package_MyClass_cMethod(JNIEnv*, jclass) {
+	return (*env)->GetVersion(env);
+}
 
 TEST(JNITest, GetVersion) {
 
