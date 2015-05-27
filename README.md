@@ -18,8 +18,8 @@ using testing::Return;
 using namespace jnimock;
 
 // The tested code
-jint Java_my_package_MyClass_cMethod(JNIEnv*, jclass) {
-	return (*env)->GetVersion(env);
+extern "C" jint Java_my_package_MyClass_myMethod(JNIEnv* env, jclass cls) {
+	return env->GetVersion();
 }
 
 // The testcase
@@ -32,7 +32,7 @@ TEST(JNITest, GetVersion) {
 		.Times(1)
 		.WillOnce(Return(JNI_VERSION_1_6));
 
-	jint r = Java_my_package_MyClass_cMethod(env, NULL);
+	jint r = Java_my_package_MyClass_myMethod(env, NULL);
 	EXPECT_EQ(r, JNI_VERSION_1_6);
 
     // Destory the created JNIEnvMock object
