@@ -8,7 +8,7 @@ Its target is mock all the JNI functions supported by Android NDK.
 
 Example
 -------
-You can use jnimock API to write JNI code related testcase like the following exmaple
+You can use jnimock API to write JNI code related testcase like the following exmaple.
 ```c++
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
@@ -46,7 +46,7 @@ Usage
 ### Use the source
 
 You can directly use the jnimock source for your testing. Copy the following two
-files to a proper place in your project 
+files to a proper place in your project's dir.
 
 	<jnimock-src-dir>/include/jnimock/jnimock.h
 	<jnimock-src-dir>/src/jnimock.cpp
@@ -58,7 +58,7 @@ files to a proper place in your project
 
 ### Use the lib (jnimock.a and jnimock_main.a)
 
-First copy the following header file to your project's 'include' dir
+First copy the following header file to your project's including dir
 
 	<jnimock-src-dir>/include/jnimock/jnimock.h
 
@@ -67,7 +67,7 @@ Then, you can alternately use jnimock.a or jnimock_main.a for your convenience.
  - jnimock.a is a static library which contains jnimock implementation.
  - jnimock_main.a is a static library which contains jnimock and gmock main() function implementation.
 
-Refer the Building details for jnimock.a and jnimock_main.a.
+Refer to the Building section to build jnimock.a and jnimock_main.a.
 If you want to build a shared lib, you can tweak the following makefile
 
 	<jnimock-src-dir>/make/Makefile
@@ -100,7 +100,7 @@ $git clone http://github.com/path/to/jnimock <jnimock-src-dir>
 $<android-ndk-dir>/build/tools/make-standalone-toolchain.sh --arch=arm --platform=android-19 --install-dir=<generated-toolchain-dir>
 ```
 
-5) Builde jnimock.a and jnimock_main.a
+5) Build jnimock.a and jnimock_main.a
 ```bash
 $ cd <jnimock-src-dir>/make
 $ make GMOCK_DIR=<gmock-src-dir> CROSS_PREFIX=<generated-toolchain-dir>/bin/arm-linux-androideabi-
