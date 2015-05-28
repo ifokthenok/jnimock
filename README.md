@@ -92,7 +92,7 @@ a dir (say \<android-ndk-dir\>)
 
 3) Download jnimock (suppose the root of jnimock is \<jnimock-src-dir\>)
 ```bash
-$git clone http://github.com/path/to/jnimock <jnimock-src-dir>
+$git clone https://github.com/ifokthenok/jnimock <jnimock-src-dir>
 ```
 
 4) Generate android cross-compile toolchain from Android NDK
