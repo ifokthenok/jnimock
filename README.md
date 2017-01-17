@@ -9,6 +9,18 @@ Its target is mock all the JNI functions supported by Android NDK.
 Example
 -------
 You can use jnimock API to write JNI code related testcase like the following exmaple.
+
+The tested code:
+
+```c++
+#include <jni.h>
+extern "C" jint Java_my_package_MyClass_myMethod(JNIEnv* env, jclass cls) {
+	return env->GetVersion();
+}
+```
+
+The testcase:
+
 ```c++
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
@@ -17,10 +29,8 @@ You can use jnimock API to write JNI code related testcase like the following ex
 using testing::Return;
 using namespace jnimock;
 
-// The tested code
-extern "C" jint Java_my_package_MyClass_myMethod(JNIEnv* env, jclass cls) {
-	return env->GetVersion();
-}
+// Declare the JNI function that wanted to be tested
+extern "C" jint Java_my_package_MyClass_myMethod(JNIEnv* env, jclass cls);
 
 // The testcase
 TEST(JNITest, GetVersion) {
