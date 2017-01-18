@@ -5,7 +5,8 @@ Overview
 --------
 jnimock is implemented on top of [gmock](http://code.google.com/p/googlemock/).
 It provides two C++ classes 'JNIEnvMock' and 'JavaVMMock' to separately mock 'JNIEnv' and 'JavaVM'.
-jnimock can be employed to test Android native code that call JNI functions.
+You can simply employ them to mock the JNI functions in your C++ testcase. 
+Currently, jnimock API is only tested for Android.
 
 Example
 -------
