@@ -749,6 +749,9 @@ static jobjectRefType GetObjectRefType(JNIEnv* env, jobject obj) {
 	return ((JNIEnvMock*)env)->GetObjectRefType(obj);
 }
 
+#ifdef __ANDROID__
+typedef JNINativeInterface JNINativeInterface_;
+#endif
 
 static const JNINativeInterface_ nativeInterface = {
 	NULL,
@@ -1043,11 +1046,18 @@ int destroyJNIEnvMock(JNIEnvMock* envMock) {
 // The JavaVMMock implementation for android
 //-----------------------------------------------------------------------------
 
+#ifdef __ANDROID__
+typedef JNIEnv** JVM_EnvPtr;
+typedef JNIInvokeInterface JNIInvokeInterface_;
+#else
+typdeef void** JVM_EnvPtr;
+#endif
+
 static jint DestroyJavaVM(JavaVM* vm) {
 	return ((JavaVMMock*)vm)->DestroyJavaVM();
 }
 
-static jint AttachCurrentThread(JavaVM* vm, void** p_env, void* thr_args) {
+static jint AttachCurrentThread(JavaVM* vm, JVM_EnvPtr p_env, void* thr_args) {
 	return ((JavaVMMock*)vm)->AttachCurrentThread((JNIEnv**)p_env, thr_args);
 }
 
@@ -1059,7 +1069,7 @@ static jint GetEnv(JavaVM* vm, void** env, jint version) {
 	return ((JavaVMMock*)vm)->GetEnv(env, version);
 }
 
-static jint AttachCurrentThreadAsDaemon(JavaVM* vm, void** p_env, void* thr_args) {
+static jint AttachCurrentThreadAsDaemon(JavaVM* vm, JVM_EnvPtr p_env, void* thr_args) {
 	return ((JavaVMMock*)vm)->AttachCurrentThreadAsDaemon((JNIEnv**)p_env, thr_args);
 }
 
@@ -1092,4 +1102,3 @@ int destroyJavaVMMock(JavaVMMock* vmMock) {
 }
 
 } // namespace jnimock
-
