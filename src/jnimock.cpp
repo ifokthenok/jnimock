@@ -116,7 +116,7 @@ static jobject NewObjectV(JNIEnv* env, jclass clazz,
 }
 
 static jobject NewObjectA(JNIEnv* env, jclass clazz,
-		jmethodID methodID, jvalue* args) {
+		jmethodID methodID, const jvalue* args) {
 	return ((JNIEnvMock*)env)->NewObjectA(clazz, methodID, args);
 }
 
@@ -154,7 +154,7 @@ static _jtype Call##_jname##MethodV(JNIEnv* env, jobject obj, jmethodID methodID
 #define JNI_CALL_TYPE_METHODA(_jtype, _jname)                                   		\
                                                            								\
 static _jtype Call##_jname##MethodA(JNIEnv* env, jobject obj, jmethodID methodID, 		\
-		jvalue* args) {                                                     			\
+		const jvalue* args) {                                                     			\
 	return ((JNIEnvMock*)env)->Call##_jname##MethodA(obj, methodID, args);				\
 }
 
@@ -186,7 +186,7 @@ static void CallVoidMethodV(JNIEnv* env, jobject obj,
 }
 
 static void CallVoidMethodA(JNIEnv* env, jobject obj,
-		jmethodID methodID, jvalue* args) {
+		jmethodID methodID, const jvalue* args) {
 	((JNIEnvMock*)env)->CallVoidMethodA(obj, methodID, args);
 }
 
@@ -212,7 +212,7 @@ static _jtype CallNonvirtual##_jname##MethodV(JNIEnv* env, jobject obj, jclass c
 #define JNI_CALL_NONVIRT_TYPE_METHODA(_jtype, _jname)                           		\
                                                            	   	   	   	   	   	   	   	\
 static _jtype CallNonvirtual##_jname##MethodA(JNIEnv* env, jobject obj, jclass clazz,	\
-		jmethodID methodID, jvalue* args) {                                 			\
+		jmethodID methodID, const jvalue* args) {                                 			\
 	return ((JNIEnvMock*)env)->CallNonvirtual##_jname##MethodA(obj, clazz,   			\
 				methodID, args);														\
 }
@@ -244,7 +244,7 @@ static void CallNonvirtualVoidMethodV(JNIEnv* env, jobject obj, jclass clazz,
 	((JNIEnvMock*)env)->CallNonvirtualVoidMethodV(obj, clazz, methodID, args);
 }
 static void CallNonvirtualVoidMethodA(JNIEnv* env, jobject obj, jclass clazz,
-    jmethodID methodID, jvalue* args) {
+    jmethodID methodID, const jvalue* args) {
 	((JNIEnvMock*)env)->CallNonvirtualVoidMethodA(obj, clazz, methodID, args);
 }
 
@@ -346,7 +346,7 @@ static _jtype CallStatic##_jname##MethodV(JNIEnv* env, jclass clazz,					\
 #define JNI_CALL_STATIC_TYPE_METHODA(_jtype, _jname)                            		\
                                                            								\
 static _jtype CallStatic##_jname##MethodA(JNIEnv* env, jclass clazz,  					\
-		jmethodID methodID, jvalue* args) {        										\
+		jmethodID methodID, const jvalue* args) {        										\
 	return ((JNIEnvMock*)env)->CallStatic##_jname##MethodA(clazz, methodID, args);		\
 }
 
@@ -377,7 +377,7 @@ static void CallStaticVoidMethodV(JNIEnv* env, jclass clazz,
 	((JNIEnvMock*)env)->CallStaticVoidMethodV(clazz, methodID, args);
 }
 static void CallStaticVoidMethodA(JNIEnv* env, jclass clazz,
-		jmethodID methodID, jvalue* args){
+		jmethodID methodID, const jvalue* args){
 	((JNIEnvMock*)env)->CallStaticVoidMethodA(clazz, methodID, args);
 }
 
@@ -697,7 +697,7 @@ static void GetStringRegion(JNIEnv* env, jstring str,
 
 static void GetStringUTFRegion(JNIEnv* env, jstring str,
 		jsize start, jsize len, char* buf) {
-	return ((JNIEnvMock*)env)->GetStringUTFRegion(str, start, len, buf);
+	((JNIEnvMock*)env)->GetStringUTFRegion(str, start, len, buf);
 }
 
 static void* GetPrimitiveArrayCritical(JNIEnv* env,
@@ -749,8 +749,11 @@ static jobjectRefType GetObjectRefType(JNIEnv* env, jobject obj) {
 	return ((JNIEnvMock*)env)->GetObjectRefType(obj);
 }
 
+#ifdef __ANDROID__
+typedef JNINativeInterface JNINativeInterface_;
+#endif
 
-static const JNINativeInterface nativeInterface = {
+static const JNINativeInterface_ nativeInterface = {
 	NULL,
 	NULL,
 	NULL,
@@ -1043,12 +1046,19 @@ int destroyJNIEnvMock(JNIEnvMock* envMock) {
 // The JavaVMMock implementation for android
 //-----------------------------------------------------------------------------
 
+#ifdef __ANDROID__
+typedef JNIEnv** JVM_EnvPtr;
+typedef JNIInvokeInterface JNIInvokeInterface_;
+#else
+typdeef void** JVM_EnvPtr;
+#endif
+
 static jint DestroyJavaVM(JavaVM* vm) {
 	return ((JavaVMMock*)vm)->DestroyJavaVM();
 }
 
-static jint AttachCurrentThread(JavaVM* vm, JNIEnv** p_env, void* thr_args) {
-	return ((JavaVMMock*)vm)->AttachCurrentThread(p_env, thr_args);
+static jint AttachCurrentThread(JavaVM* vm, JVM_EnvPtr p_env, void* thr_args) {
+	return ((JavaVMMock*)vm)->AttachCurrentThread((JNIEnv**)p_env, thr_args);
 }
 
 static jint DetachCurrentThread(JavaVM* vm) {
@@ -1059,11 +1069,11 @@ static jint GetEnv(JavaVM* vm, void** env, jint version) {
 	return ((JavaVMMock*)vm)->GetEnv(env, version);
 }
 
-static jint AttachCurrentThreadAsDaemon(JavaVM* vm, JNIEnv** p_env, void* thr_args) {
-	return ((JavaVMMock*)vm)->AttachCurrentThreadAsDaemon(p_env, thr_args);
+static jint AttachCurrentThreadAsDaemon(JavaVM* vm, JVM_EnvPtr p_env, void* thr_args) {
+	return ((JavaVMMock*)vm)->AttachCurrentThreadAsDaemon((JNIEnv**)p_env, thr_args);
 }
 
-static const JNIInvokeInterface invokeInterface = {
+static const JNIInvokeInterface_ invokeInterface = {
 	NULL,
 	NULL,
 	NULL,
@@ -1092,4 +1102,3 @@ int destroyJavaVMMock(JavaVMMock* vmMock) {
 }
 
 } // namespace jnimock
-

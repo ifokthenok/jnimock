@@ -44,53 +44,53 @@ struct JNIEnvMock : public JNIEnv {
 
     MOCK_METHOD1(AllocObject, jobject(jclass));
     MOCK_METHOD3(NewObjectV, jobject(jclass, jmethodID, va_list));
-    MOCK_METHOD3(NewObjectA,jobject(jclass, jmethodID, jvalue*));
+    MOCK_METHOD3(NewObjectA,jobject(jclass, jmethodID, const jvalue*));
 
 	MOCK_METHOD1(GetObjectClass, jclass(jobject));
 	MOCK_METHOD2(IsInstanceOf, jboolean(jobject, jclass));
 	MOCK_METHOD3(GetMethodID, jmethodID(jclass, const char*, const char*));
 
     MOCK_METHOD3(CallObjectMethodV, jobject(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallObjectMethodA, jobject(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallObjectMethodA, jobject(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallBooleanMethodV, jboolean(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallBooleanMethodA, jboolean(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallBooleanMethodA, jboolean(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallByteMethodV, jbyte(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallByteMethodA, jbyte(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallByteMethodA, jbyte(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallCharMethodV, jchar(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallCharMethodA, jchar(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallCharMethodA, jchar(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallShortMethodV, jshort(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallShortMethodA, jshort(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallShortMethodA, jshort(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallIntMethodV, jint(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallIntMethodA, jint(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallIntMethodA, jint(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallLongMethodV, jlong(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallLongMethodA, jlong(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallLongMethodA, jlong(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallFloatMethodV, jfloat(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallFloatMethodA, jfloat(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallFloatMethodA, jfloat(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallDoubleMethodV, jdouble(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallDoubleMethodA, jdouble(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallDoubleMethodA, jdouble(jobject, jmethodID, const jvalue*));
     MOCK_METHOD3(CallVoidMethodV, void(jobject, jmethodID, va_list));
-    MOCK_METHOD3(CallVoidMethodA, void(jobject, jmethodID, jvalue*));
+    MOCK_METHOD3(CallVoidMethodA, void(jobject, jmethodID, const jvalue*));
 
     MOCK_METHOD4(CallNonvirtualObjectMethodV, jobject(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualObjectMethodA, jobject(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualObjectMethodA, jobject(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualBooleanMethodV, jboolean(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualBooleanMethodA, jboolean(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualBooleanMethodA, jboolean(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualByteMethodV, jbyte(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualByteMethodA, jbyte(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualByteMethodA, jbyte(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualCharMethodV, jchar(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualCharMethodA, jchar(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualCharMethodA, jchar(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualShortMethodV, jshort(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualShortMethodA, jshort(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualShortMethodA, jshort(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualIntMethodV, jint(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualIntMethodA, jint(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualIntMethodA, jint(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualLongMethodV, jlong(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualLongMethodA, jlong(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualLongMethodA, jlong(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualFloatMethodV, jfloat(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualFloatMethodA, jfloat(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualFloatMethodA, jfloat(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualDoubleMethodV, jdouble(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualDoubleMethodA, jdouble(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualDoubleMethodA, jdouble(jobject, jclass, jmethodID, const jvalue*));
     MOCK_METHOD4(CallNonvirtualVoidMethodV, void(jobject, jclass,  jmethodID, va_list));
-    MOCK_METHOD4(CallNonvirtualVoidMethodA, void(jobject, jclass, jmethodID, jvalue*));
+    MOCK_METHOD4(CallNonvirtualVoidMethodA, void(jobject, jclass, jmethodID, const jvalue*));
 
 	MOCK_METHOD3(GetFieldID, jfieldID(jclass, const char*, const char*));
 
@@ -117,25 +117,25 @@ struct JNIEnvMock : public JNIEnv {
 	MOCK_METHOD3(GetStaticMethodID, jmethodID(jclass, const char*, const char*));
 
 	MOCK_METHOD3(CallStaticObjectMethodV, jobject(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticObjectMethodA, jobject(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticObjectMethodA, jobject(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticBooleanMethodV, jboolean(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticBooleanMethodA, jboolean(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticBooleanMethodA, jboolean(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticByteMethodV, jbyte(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticByteMethodA, jbyte(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticByteMethodA, jbyte(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticCharMethodV, jchar(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticCharMethodA, jchar(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticCharMethodA, jchar(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticShortMethodV, jshort(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticShortMethodA, jshort(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticShortMethodA, jshort(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticIntMethodV, jint(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticIntMethodA, jint(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticIntMethodA, jint(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticLongMethodV, jlong(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticLongMethodA, jlong(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticLongMethodA, jlong(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticFloatMethodV, jfloat(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticFloatMethodA, jfloat(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticFloatMethodA, jfloat(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticDoubleMethodV, jdouble(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticDoubleMethodA, jdouble(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticDoubleMethodA, jdouble(jclass, jmethodID, const jvalue*));
 	MOCK_METHOD3(CallStaticVoidMethodV, void(jclass, jmethodID, va_list));
-	MOCK_METHOD3(CallStaticVoidMethodA, void(jclass, jmethodID, jvalue*));
+	MOCK_METHOD3(CallStaticVoidMethodA, void(jclass, jmethodID, const jvalue*));
 
 	MOCK_METHOD3(GetStaticFieldID, jfieldID(jclass, const char*, const char*));
 
